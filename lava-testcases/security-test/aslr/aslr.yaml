@@ -1,0 +1,22 @@
+metadata:
+    name: aslr
+    format: "Lava-Test Test Definition 1.0"
+    description: "Run aslr tests on openEuler RISC-V"
+    maintainer:
+        - si.yanteng@linux.dev
+    os:
+        - openEuler-riscv64
+    scope:
+        - security
+    devices:
+      - qemu
+      - lpi4a
+      - sg2042
+
+run:
+    steps:
+        - cd lava-testcases/security-test/aslr
+        - chmod +x aslr.sh
+        - ./aslr.sh
+        - chmod +x ../../utils/send-to-lava.sh
+        - ../../utils/send-to-lava.sh ./output/result.txt
