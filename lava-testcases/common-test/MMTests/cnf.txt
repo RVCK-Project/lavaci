@@ -21,7 +21,7 @@ config-memdb-redis-benchmark-small
 config-multi-tbench__netperf-tcp-rr
 config-network-netperf-unix-unbound
 config-network-netpipe
-config-pagereclaim-stutter
+config-pagereclaim-stutterp
 config-scheduler-adrestia-single-unbound
 config-scheduler-lat_proc
 config-scheduler-saladfork
@@ -67,6 +67,7 @@ config-io-paralleldd-read-small
 config-io-pgioperf
 config-io-xfsio
 config-ipc-scale-short
+config-ipc-scale-long
 config-network-netperf-rr-ipv4-unbound
 config-network-netperf-rr-ipv6-unbound
 config-network-netperf-stream-ipv4-unbound
