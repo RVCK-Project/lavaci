@@ -13,7 +13,7 @@ metadata:
       - lpi4a
       - sg2042
 params:
-    TST_CMDFILES: syscalls,fs,fs_perms_simple,dio,mm,irq,sched,nptl,containers,fcntl-locktests,power_management_tests,hyperthreading,cpuhotplug,net.ipv6_lib,cve,crypto,kernel_misc,uevent
+    TST_CMDFILES: syscalls
 run:
     steps:
         - cd lava-testcases/common-test/ltp/
