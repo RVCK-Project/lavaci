@@ -65,6 +65,48 @@ actions:
 # TEST_BLOCK
 - test:
     timeout:
+      minutes: 30
+    definitions:
+    - repository:
+        metadata:
+          format: Lava-Test Test Definition 1.0
+          name: install-kernel-moduels
+          description: "install kernel moduels"
+        run:
+          steps:
+          - |
+            kernel_release=$(uname -r)
+            modules_install_path="/lib/modules/${kernel_release}"
+            kernel_modules_url="https://fast-mirror.isrc.ac.cn/openeuler-sig-riscv/openEuler-RISC-V/RVCK/OERV-RVCI/rvck-olk/latest/${kernel_release}.tgz"
+            tmp_tar="/root/${kernel_release}.tgz"
+
+            [[ -d "${modules_install_path}" ]] && { echo "${modules_install_path} already exists"; return; }
+
+            mkdir -p /lib/modules
+            rm -f "$tmp_tar"
+            wget -O "${tmp_tar}" "${kernel_modules_url}" || { echo "wget ${kernel_modules_url} failed"; exit 1; }
+            tar -xf "${tmp_tar}" -C /lib/modules/        || { echo "tar ${tmp_tar} failed"; exit 2; }
+            rm -f "${tmp_tar}"                           || :
+            sync
+            reboot
+      from: inline
+      name: install-kernel-moduels
+      path: inline/install-kernel-moduels.yaml
+# BOOT_BLOCK
+- boot:
+    timeout:
+      minutes: 20
+    method: qemu
+    media: tmpfs
+    prompts: ["root@openeuler-riscv64"]
+    auto_login:
+      login_prompt: "openeuler-riscv64 login:"
+      username: root
+      password_prompt: "Password:"
+      password: openEuler12#$
+# TEST_BLOCK
+- test:
+    timeout:
       minutes: 10100
     definitions:
     - repository: ${testcase_repo}
