@@ -10,41 +10,41 @@ LAVA是由 linaro 开发的一种开源自动化测试框架，主要用于测�
 
 输入 https://lava.oerv.ac.cn/ 进入 LAVA，选择 Scheduler -> Jobs 可以进入 LAVA job list 界面，可以查看各个测试任务的状态
 
-![lava-job-list](..\images\lava-job-list.jpg)
+![lava-job-list](../images/lava-job-list.jpg)
 
 点击右上方 Sign In，输入账号登录，选择 Scheduler -> Submit，输入 job 内容，先点击 Validate 校验一下有没有语法错误，如果有语法错，会有相关提示，如果语法正确，点击 Submit 提交该 job
 
-![lava-submit-job](..\images\lava-submit-job.jpg)
+![lava-submit-job](../images/lava-submit-job.jpg)
 
 #### 2.2 查看测试日志和结果
 
 在 lava job list 界面，选择要查看的 job，该 job 前面有 3 个图标，从左到右分别是查看测试结果，查看日志，查看 job 定义
 
-![lava-job-options](..\images\lava-job-options.jpg)
+![lava-job-options](../images/lava-job-options.jpg)
 
 当日志过大，在日志界面无法通过 web 查看日志，只能下载到本地查看
 
-![lava-download-plainlog](..\images\lava-download-plainlog.jpg)
+![lava-download-plainlog](../images/lava-download-plainlog.jpg)
 
 点击上方菜单中的 Results -> Results，进入 lava results overview 界面
 
-![lava-result-list](..\images\lava-result-list.jpg)
+![lava-result-list](../images/lava-result-list.jpg)
 
 每个 job id 对应多个结果，包括 lava job 中每个阶段执行结果，以及测试用例执行结果，下图是测试用例执行结果
 
-![lava-result-testcase](..\images\lava-result-testcase.jpg)
+![lava-result-testcase](../images/lava-result-testcase.jpg)
 
 #### 2.3 查看设备类型和设备
 
 Scheduler -> Device Types，可以看到目前 LAVA 平台支持的设备类型，以及各个设备类型下面设备的状态
 
-![lava-device-types](..\images\lava-device-types.jpg)
+![lava-device-types](../images/lava-device-types.jpg)
 
 从上图可以看出，lpi4a 有 2 个设备，都是 idle 状态，qemu 有 3 个设备，2个 idle 状态，1个 busy 状态，也就是正在执行 job
 
 Scheduler -> Devices，可以看到目前 LAVA 平台中所有设备的信息
 
-![lava-devices](..\images\lava-devices.jpg)
+![lava-devices](../images/lava-devices.jpg)
 
 ### 3. LAVA job 和 LAVA 测试用例语法
 
@@ -52,7 +52,7 @@ Scheduler -> Devices，可以看到目前 LAVA 平台中所有设备的信息
 
 LAVA job 是一个 yaml 文件，内容如下所示
 
-![lava-job-definition](..\images\lava-job-definition.jpg)
+![lava-job-definition](../images/lava-job-definition.jpg)
 
 其中各个字段的解释如下：
 
@@ -82,7 +82,7 @@ test：指定要执行的测试用例，测试用例可以直接在里面定义�
 
  LAVA 测试用例的格式也是 yaml 文件，可以将测试用例存储在 git 仓库中，在测试任务中下载调用，或者直接将测试用例内容写在测试任务中，直接写在测试任务中的测试用例叫做inline测试用例，为了方便测试用例管理和复用，建议将测试用例存储在git 仓库中
 
-![lava-job-test](..\images\lava-job-test.jpg)
+![lava-job-test](../images/lava-job-test.jpg)
 
 上图显示的是测试任务中test字段的内容，在这个测试任务中，执行了3个测试用例，
 
@@ -98,7 +98,7 @@ name：表示执行此测试时使用的名称，对应LAVA results overview 界
 
 测试用例由 metadata，params，run 三部分字段内容组成
 
-![lava-testcase](..\images\lava-testcase.jpg)
+![lava-testcase](../images/lava-testcase.jpg)
 
 metadata字段包括：
 
