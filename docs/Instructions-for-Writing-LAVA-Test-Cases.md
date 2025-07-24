@@ -4,7 +4,7 @@
 
 测试用例仓库地址 https://github.com/RVCK-Project/lavaci
 
-![lavaci-repo-framework](..\images\lavaci-repo-framework.jpg)
+![lavaci-repo-framework](../images/lavaci-repo-framework.jpg)
 
 ### 2. LAVA job
 
@@ -129,7 +129,7 @@ parameters: 要传入测试用例的参数
 
 LAVA 测试用例的格式是 yaml 文件，为了该 yaml 文件比较简洁，将测试的具体步骤以及测试结果的存储写在 shell 文件中，在 yaml 文件中调用 shell 文件执行测试，并在执行完成后对测试结果按照 LAVA 的要求进行解析，以便可以在 results 界面可以显示测试结果，所以每个测试项目对应一个测试套，每个测试套由一个 yaml文件，至少一个 shell 文件，以及 shell 文件需要调用的其他脚本文件组成
 
-![lavaci-repo-testsuite](..\images\lavaci-repo-testsuite.jpg)
+![lavaci-repo-testsuite](../images/lavaci-repo-testsuite.jpg)
 
 测试用例内容：
 
