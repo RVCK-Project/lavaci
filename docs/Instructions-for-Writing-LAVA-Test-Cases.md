@@ -279,13 +279,13 @@ write-1024kB-1024reclen pass 456532 kBytes/sec
 
 ### 5. 测试套验证
 
-测试套编写完成后，需要在 LAVA 中进行验证，确保测试用例可以正常执行并在 Results 显示测试结果，验证没有问题后，提交 pr 到测试用例仓库 https://github.com/RVCK-Project/lavaci 并附上测试成功的凭证
+测试套编写完成后，需要在 LAVA 中进行验证，确保测试用例可以正常执行并在 Results 显示测试结果，验证没有问题后，按照[要求](https://github.com/RVCK-Project/lavaci/blob/main/README.md)提交 pr 到[测试用例仓库](https://github.com/RVCK-Project/lavaci)并附上测试成功的凭证，提交 pr 后会自动触发门禁检查
 
 
 
 
 
-
+参考：
 
 LAVA 相关内容可以参考 LAVA 官网：https://validation.linaro.org/static/docs/v2/index.html
 
