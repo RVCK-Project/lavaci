@@ -61,9 +61,26 @@ parse_mmtests_output() {
     popd
 }
 
+mount_extra_fs(){
+    label=extra_hd
+    mountpoint=/usr/libexec/MMTests
+
+    dev=$(blkid -L "$label")
+    [[ -n $dev ]] || { echo "no file system with label: $label"; return; }
+
+    if mountpoint -q "$mountpoint" || findmnt -S "$dev" >/dev/null; then
+        echo "$mountpoint or $dev already mounted"; return
+    fi
+
+    mkdir -p "$mountpoint"
+
+    mount -L "$label" "$mountpoint"
+    echo "$dev (LABEL=$label) is mounted to $mountpoint"
+}
 
 install_mmtests() {
     echo "${RAVA_REPO}" | tee -a /etc/yum.repos.d/openEuler.repo
+    mount_extra_fs
     dnf install -y git python3-devel python3-rpm-macros autoconf automake libtool make patch bc binutils-devel bzip2 coreutils kernel-tools e2fsprogs expect expect-devel gawk gcc gzip hdparm hostname hwloc iproute nmap numactl perl-File-Slurp perl-Time-HiRes psmisc tcl time util-linux wget which xfsprogs xfsprogs-devel xz btrfs-progs numad tuned perl-Try-Tiny perl-JSON perl-GD zlib zlib-devel httpd net-tools gcc-c++ m4 flex byacc bison keyutils-libs-devel lksctp-tools-devel libacl-devel openssl-devel numactl-devel libaio-devel glibc-devel libcap-devel findutils libtirpc libtirpc-devel kernel-headers glibc-headers hwloc-devel tar cmake fio sysstat  popt-devel libstdc++ libstdc++-static openssl elfutils-libelf-devel slang-devel libbabeltrace-devel zstd-devel gtk2-devel systemtap rpcgen vim perl-List-BinarySearch perl-Math-Gradient R mmtests
 }
 

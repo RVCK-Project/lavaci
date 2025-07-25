@@ -47,6 +47,10 @@ actions:
         image_arg: -drive file={rootfs},format=raw,id=hd0,if=none
         url: ${rootfs_image_url}
         compression: zstd
+      disk:
+        image_arg: -drive file={disk},if=none,id=drv1,format=raw -device virtio-blk-device,drive=drv1
+        url: https://repo.tarsier-infra.isrc.ac.cn/openEuler-RISC-V/RVCK/openEuler24.03-LTS-SP1/mmtests-128G.img.zst
+        compression: zstd
 # BOOT_BLOCK
 - boot:
     timeout:
