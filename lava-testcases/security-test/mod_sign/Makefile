@@ -1,7 +1,10 @@
 obj-m += hello.o
 
+KERNEL_RELEASE := $(shell uname -r | sed 's/+/-/')
+KERNELDIR := $(shell ls -d /lib/modules/$(KERNEL_RELEASE)* 2>/dev/null)
+
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	make -C $(KERNELDIR)/build M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C $(KERNELDIR)/build M=$(PWD) clean
