@@ -17,6 +17,6 @@ run:
     steps:
         - cd lava-testcases/security-test/syn
         - chmod +x syn.sh
-        - ./trinity.sh
+        - ./syn.sh
         - chmod +x ../../utils/send-to-lava.sh
         - ../../utils/send-to-lava.sh ./output/result.txt
