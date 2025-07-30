@@ -17,8 +17,11 @@ mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 git clone https://github.com/hpcg-benchmark/hpcg.git
 cd hpcg
-sed -i 's/^\(MPdir[[:space:]]*=[[:space:]]*\).*$/\1${MPI_HOME}/' setup/Make.Linux_MPI
-sed -i 's/^\(MPlib[[:space:]]*=[[:space:]]*\).*$/\1${MPI_LIB}/' setup/Make.Linux_MPI
+MPI_PATH=$(dirname $(dirname $(which mpicxx)))
+sed -i "s|^\(MPdir\s*=\).*|\1$MPI_PATH|" setup/Make.Linux_MPI
+sed -i 's|^\(MPinc\s*=\).*|\1 -I$(MPdir)/include|' setup/Make.Linux_MPI
+sed -i 's|^\(MPlib\s*=\).*|\1 $(MPdir)/lib|' setup/Make.Linux_MPI
+sed -i 's|^\(CXX\s*=\s*\).*|\1$(MPdir)/bin/mpicxx|' setup/Make.Linux_MPI
 
 mkdir build && cd build
 ../configure Linux_MPI
