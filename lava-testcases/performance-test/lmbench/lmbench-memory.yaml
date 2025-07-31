@@ -15,6 +15,6 @@ metadata:
 run:
   steps:
     - cd lava-testcases/performance-test/lmbench
-    - bash lmbench.sh
+    - bash lmbench-memory.sh
     - chmod +x ../../utils/send-to-lava.sh
     - ../../utils/send-to-lava.sh ./output/result.txt
