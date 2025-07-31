@@ -28,17 +28,20 @@ latency_test() {
     # Only data accesses are measured; the instruction cache is not measured.
     # L1: Try stride of 128 and array size of .00098.
     # L2: Try stride of 128 and array size of .125.
-    grep "^0.00098" "${lat_output}" \
-      | awk '{printf("l1-read-latency pass %s ns\n", $2)}' \
-      | tee -a "${RESULT_FILE}"
+    # grep "^0.00098" "${lat_output}" \
+    #   | awk '{printf("l1-read-latency pass %s ns\n", $2)}' \
+    #   | tee -a "${RESULT_FILE}"
 
-    grep "^0.125" "${lat_output}" \
-      | awk '{printf("l2-read-latency pass %s ns\n", $2)}' \
-      | tee -a "${RESULT_FILE}"
+    # grep "^0.125" "${lat_output}" \
+    #   | awk '{printf("l2-read-latency pass %s ns\n", $2)}' \
+    #   | tee -a "${RESULT_FILE}"
 
-    # Main memory: the last line.
-    grep "^256" "${lat_output}" \
-      | awk '{printf("main-memory-read-latency pass %s ns\n", $2)}' \
+    # # Main memory: the last line.
+    # grep "^256" "${lat_output}" \
+    #   | awk '{printf("main-memory-read-latency pass %s ns\n", $2)}' \
+    #   | tee -a "${RESULT_FILE}"
+    
+    tail -n +2 "${lat_output}" | grep -v '^$' | awk '{printf("%sM-read-latency pass %s ns\n", $1, $2)}' \
       | tee -a "${RESULT_FILE}"
 }
 
