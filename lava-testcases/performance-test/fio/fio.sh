@@ -35,8 +35,16 @@ fio_test() {
         -numjobs="${NUMJOBS}" -ioengine="${IOENGINE}" -direct=1 -group_reporting \
         -output="${file}"
     
-    measurement=$(grep -m 1 "IOPS=" "${file}" | cut -d= -f2 | cut -d, -f1)
-    add_metric "fio-${rw}" "pass" "${measurement}" "iops"
+    iops_measurement=$(grep -m 1 "IOPS=" "${file}" | cut -d= -f2 | cut -d, -f1)
+    add_metric "fio-${rw}" "pass" "${iops_measurement}" "iops"
+
+    bw_measurement=$(grep -m1 'BW=' "${file}" | grep -oE 'BW=[0-9.]+' | cut -d'=' -f2)
+    bw_unit=$(grep -m1 'BW=' "${file}" | sed -nE 's/.*[bB][wW]=[0-9.]+([^ ,;\)[:space:]]+).*/\1/p')
+    add_metric "fio-${rw}-bw" "pass" "${bw_measurement}" "${bw_unit}"
+
+    lat_measurement=$(grep -m1 '^ *lat ' "${file}" | sed -E 's/.*avg=([0-9.]+).*/\1/')
+    lat_unit=$(grep -m1 '^ *lat ' "${file}" | sed -nE 's/^.*\(([^)]+)\).*/\1/p')
+    add_metric "fio-${rw}-lat-avg" "pass" "${lat_measurement}" "${lat_unit}"
     
     rm -rf ./"${rw}"* 
 }
