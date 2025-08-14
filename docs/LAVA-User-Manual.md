@@ -175,4 +175,4 @@ lava-test-case $TEST_CASE_NAME --result $RESULT --measurement $MEASUREMENT --uni
 
 上图中的脚本 send-to-lava.sh 是用来读取存储测试结果的文件，并将测试结果用 lava-test-case 命令反馈给 LAVA
 
-详细的 LAVA job 和 测试用例语法可以参看 [LAVA 官网](https://validation.linaro.org/static/docs/v2/index.html)，[lavaci 仓库]里已有一些测试用例，可供参考并直接在 LAVA 平台使用
+详细的 LAVA job 和 测试用例语法可以参看 [LAVA 官网](https://validation.linaro.org/static/docs/v2/index.html)，[lavaci 仓库](https://github.com/RVCK-Project/lavaci/tree/main/lava-testcases)里已有一些测试用例，可供参考并直接在 LAVA 平台使用
