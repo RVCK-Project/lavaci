@@ -1,0 +1,25 @@
+metadata:
+  name: wrk
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+params:
+  THREADS: "NPROC"
+  HTTP_CONNECTIONS: "1000"
+  DURATION: "1m"
+  TIMEOUT: "10s"
+run:
+  steps:
+    - cd lava-testcases/performance-test/wrk
+    - bash wrk.sh -t "${THREADS}" -c "${HTTP_CONNECTIONS}" -d "${DURATION}" -T "${TIMEOUT}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
