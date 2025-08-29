@@ -1,0 +1,25 @@
+metadata:
+    name: kselftest
+    format: "Lava-Test Test Definition 1.0"
+    description: "Run kselftest on openEuler RISC-V"
+    maintainer:
+        - yafen@iscas.ac.cn
+    os:
+        - openEuler-riscv64
+    scope:
+        - kselftest functions
+    devices:
+      - qemu
+      - lpi4a
+      - sg2042
+params:
+    TARGETS: ""
+    KERNEL: "https://github.com/RVCK-Project/rvck-olk.git"
+    BRANCH: "OLK-6.6"
+run:
+    steps:
+        - cd lava-testcases/common-test/kselftest/
+        - chmod +x kselftest.sh
+        - ./kselftest.sh -K "${KERNEL}" -B "${BRANCH}" -T "${TARGETS}"
+        - chmod +x ../../utils/send-to-lava.sh
+        - ../../utils/send-to-lava.sh ./output/result.txt
