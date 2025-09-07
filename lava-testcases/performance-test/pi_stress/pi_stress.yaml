@@ -1,0 +1,26 @@
+metadata:
+  name: pi_stress
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+params:
+  DURATION: "5m"
+  MLOCKALL: "false"
+  RR: "false"
+  ITERATIONS: 1
+  USER_BASELINE: ""
+run:
+  steps:
+    - cd lava-testcases/performance-test/pi_stress
+    - bash pi_stress.sh -D "${DURATION}" -m "${MLOCKALL}" -r "${RR}" -i "${ITERATIONS}" -x "${USER_BASELINE}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt

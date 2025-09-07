@@ -70,9 +70,6 @@ actions:
       name: ${testitem_name}
       path: ${testcase_path}
       parameters:
-        PRIORITY: ${priority}
-        INTERVAL: ${interval}
-        THREADS: ${threads}
-        AFFINITY: ${affinity}
         DURATION: ${duration}
-        HISTOGRAM: ${histogram}
+        ITERATIONS: ${iterations}
+        
