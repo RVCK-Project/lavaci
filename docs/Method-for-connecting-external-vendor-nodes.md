@@ -4,9 +4,9 @@
 
 | 模块               | 内容                                                                                                                          |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| device-type 文件   | 提供设备类型对应的 device-type 文件                                                                                           |
+| device-type 文件   | 提供设备类型对应的 device-type 文件，用于控制设备的启动流程，为 jinja2 格式 |
 | 设备启动需要的文件 | 设备在启动过程中必须依赖的固件或引导文件，通常由设备类型（`device-type`）的模板文件指定，如 lpi4a 的 fw\_dynamic.bin 固件 |
-| 电源控制方式       | 提供对设备进行电源开关控制的方式                                                                                              |
+| 电源控制方式       | 提供对设备进行电源开关控制的方式 |
 
 如若无法提供 device-type 文件，则需要提供设备启动方式相关步骤和参数，我们来调试得到设备的 device-type 文件。但设备启动需要的文件和电源控制方式仍需提供。
 
@@ -149,7 +149,7 @@
 
 ### 电源控制方式
 
-设备在自动化测试中需要具备可控的电源开关能力，以便 LAVA 在执行测试作业时能够复位、重启或强制关机。常见的电源控制方式包括使用 ​**PDU**​**​（​**​​**Power Distribution Unit**​​**）**​、​**智能插座**​、​**继电器模块**​，或通过 **板载的控制接口（如 ​**​​**BMC**​**​、​**​**USB**​**​ 控制电源开关）** 实现。LAVA 会在 `device-type` 或 `device-dictionary` 配置中定义具体的电源控制方法，从而保证测试过程的可重复性和稳定性。
+设备在自动化测试中需要具备可控的电源开关能力，以便 LAVA 在执行测试作业时能够复位、重启或强制关机。常见的电源控制方式包括使用 ​**PDU（​Power Distribution Unit）**​、​**智能插座**​、​**继电器模块**​，或通过 **板载的控制接口（如 BMC​、​USB​ 控制电源开关）** 实现。LAVA 会在 `device-type` 或 `device-dictionary` 配置中定义具体的电源控制方法，从而保证测试过程的可重复性和稳定性。
 
 ## 远程接入
 
@@ -158,20 +158,20 @@
 | 模块                                | 内容                                                                                                                                                   |
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | worker 机器部署                     | 可参考下述部署 worker 准备 worker 设备，需要提供连入方式，并且网络配置可以接入 LAVA server（不要暴露 Worker 到公网）                                   |
-| 将测试设备通过串口连接到 worker     | 将设备通过串口连接 worker 机器，worker 机器可以通过串口与设备通信。                                                                                    |
+| 将测试设备通过串口连接到 worker     | 将设备通过串口连接 worker 机器，worker 机器可以通过串口与设备通信。 |
 | 测试设备电源控制                    | 通过命令对设备进行电源开关控制，lava 测试过程中通过命令启停设备（目前接入的 lpi4a 使用 Home-Assistant 智能开关，可通过 curl 命令控制电源开关启停设备） |
-| 使用 ser2net 为串口打开一个网络连接 | 将设备的物理串口（如`/dev/ttyUSB0`）通过网络端口暴露出来，使得 LAVA worker 可以通过 TCP 连接访问串口。                                             |
-| 安装 tftp, NFS server 并配置        | 设备通过 tftp 从 worker 获取固件，内核，设备树相关文件，通过 NFS 的方式获取文件系统。安装并验证两者配置                                                |
-| 在 worker 上放置设备启动需要的文件  | 根据后续的 device-type 文件，将需要在启动过程中加载的文件放置在 worker 的固定位置上，如 lpi4a 的 uboot 固件                                            |
+| 使用 ser2net 为串口打开一个网络连接 | 将设备的物理串口（如`/dev/ttyUSB0`）通过网络端口暴露出来，使得 LAVA worker 可以通过 TCP 连接访问串口。 |
+| 安装 tftp, NFS server 并配置        | 设备通过 tftp 从 worker 获取固件，内核，设备树相关文件，通过 NFS 的方式获取文件系统。安装并验证两者配置 |
+| 在 worker 上放置设备启动需要的文件  | 根据后续的 device-type 文件，将需要在启动过程中需要加载的文件或需要运行的脚本放置在 worker 的固定位置上，如 lpi4a 的 uboot 固件，sg2042 准备 nfsrootfs 和 pxelinux.cfg 的脚本 |
 
 需要提供的信息和内容：
 
 | 模块                                        | 内容                                                                                               |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| worker 的名字                               | 接入的 worker 的唯一的名字，后续在 server 添加 worker 后会反馈对应的 token                         |
+| worker 的名字                               | 接入的 worker 的唯一的名字，后续在 server 添加 worker 后会反馈对应的 token  |
 | worker 的 ip 地址以及连接方式               | 需要将 worker 的 ip 地址添加到 server 的配置文件中，并通过网络配置确保 server 和 worker 的连接畅通 |
-| device-type 文件与设备类型名称              | 提供设备类型对应的 device-type 文件与设备类型名称                                                  |
-| 每个设备的 device dictionary 文件与设备名称 | 提供每一个测试设备对应的 device dictionary 文件与设备名称                                          |
+| device-type 文件与设备类型名称              | 提供设备类型对应的 device-type 文件与设备类型名称  |
+| 每个设备的 device dictionary 文件与设备名称 | 提供每一个测试设备对应的 device dictionary 文件与设备名称 |
 
 ### worker 机器部署
 
@@ -378,7 +378,96 @@ sudo service nfs-kernel-server restart   # 配置完成后重启 NFS server
 
 ### 在 worker 上放置设备启动需要的文件
 
-根据后续的 device-type 文件，将设备启动过程中需要固定加载的文件放置在 worker 上，如 lpi4a 的 uboot 固件
+根据后续的 device-type 文件，将设备启动过程中需要固定加载的文件或需要运行的脚本放置在 worker 上，如设备启动，关闭和重置的脚本，lpi4a 的 uboot 固件和 sg2042 准备 nfsrootfs 和 pxelinux.cfg 的脚本等
+
+如 lpi4a 的设备启动，关闭和重置的脚本：
+
+```
+user@debian:~/lpi4a$ ls
+hard_reset  power_off  power_on  response  response.json
+user@debian:~/lpi4a$ cat power_on 
+#!/bin/bash
+
+curl -X POST -H "Authorization: {tocken}" -H "Content-Type: application/json" -d '{"entity_id":"{entity_id}"}' http://{server_ip}:8123/api/services/switch/turn_on
+user@debian:~/lpi4a$ cat power_off
+#!/bin/bash
+
+curl -X POST -H "Authorization: {tocken}" -H "Content-Type: application/json" -d '{"entity_id":"{entity_id}"}' http://{server_ip}:8123/api/services/switch/turn_off
+user@debian:~/lpi4a$ cat hard_reset 
+#!/bin/bash
+cd /home/user/lpi4a || exit 1
+./power_off && sleep 10 && ./power_on
+```
+
+device-type 中 uboot_tftp_commands 运行 tftp 0x0 mine/final/dtb/fw_dynamic.bin 需要的 fw_dynamic.bin 放在对应的目录下：
+
+```
+user@debian:/srv/tftp$ ls mine/final/dtb/fw_dynamic.bin 
+mine/final/dtb/fw_dynamic.bin
+```
+
+sg2042 准备 nfsrootfs 和 pxelinux.cfg 的脚本：
+
+```
+user@debian:~/sg2042$ cat reset_nfsrootfs 
+#!/bin/bash
+
+sudo -S rm -rf /var/lib/lava/dispatcher/tmp/sg2042_rootfs << EOF
+{password}\r
+EOF
+sudo -S mkdir /var/lib/lava/dispatcher/tmp/sg2042_rootfs << EOF
+{password}\r
+EOF
+sudo -S tar -zxf /home/user/sg2042/openeuler-rootfs.tar.gz -C /var/lib/lava/dispatcher/tmp/sg2042_rootfs << EOF
+{password}\r
+EOF
+
+sudo -S usbreset 1a86:55d3 << EOF
+{password}\r
+EOF
+
+user@debian:~/sg2042$ cat generate_pxelinux 
+#!/bin/sh
+set -e
+
+env_file=$(ls -d /var/lib/lava/dispatcher/tmp/sg2042_rootfs/lava-*/environment | head -n1)
+. "$env_file"
+
+TFTP_BASE="/srv/tftp"
+JOB_DIR="${TFTP_BASE}/${LAVA_JOB_ID}/tftp-deploy-*"
+
+KERNEL=$(find $JOB_DIR/kernel -name 'Image' | head -n1)
+DTB=$(find $JOB_DIR/dtb -name '*.dtb' | head -n1)
+
+if [ -z "$KERNEL" ] || [ -z "$DTB" ]; then
+    echo "Error: kernel or dtb not found for job $LAVA_JOB_ID"
+    exit 1
+fi
+
+JOB_CFG_DIR="${TFTP_BASE}/pxelinux.cfg"
+
+sudo -S rm -f "${TFTP_BASE}/pxelinux.cfg/default" << EOF
+{password}\r
+EOF
+
+sudo -S cp /home/user/sg2042/default "${TFTP_BASE}/pxelinux.cfg/default" << EOF
+{password}\r
+EOF
+
+KERNEL_REL=${KERNEL#$TFTP_BASE/}
+DTB_REL=${DTB#$TFTP_BASE/}
+
+sudo -S sed -i \
+    -e "s|{KERNEL}|${KERNEL_REL}|g" \
+    -e "s|{DTB}|${DTB_REL}|g" \
+    "${TFTP_BASE}/pxelinux.cfg/default" << EOF
+{password}\r
+EOF
+
+echo "Generated pxelinux.cfg for job $LAVA_JOB_ID"
+echo "Kernel: $KERNEL"
+echo "DTB: $DTB"
+```
 
 ### worker 的名字
 
@@ -576,6 +665,16 @@ device-type 文件编写首先可以到 https://gitlab.com/lava/lava/-/tree/mast
 {% set power_on_command = '/home/username/lpi4a-01/power_on' %} 
 {% set hard_reset_command = '/home/username/lpi4a-01/hard_reset' %} 
 {% set soft_reset_command = '/home/username/lpi4a-01/hard_reset' %}
+```
+
+#### 配置额外的命令，如 sg2042 准备 nfsrootfs 和 pxelinux.cfg 的脚本
+
+```jinja
+{% set pxelinux_generate = '/home/zhtianyu/sg2042/generate_pxelinux' %}
+{% set pre_os_command = '/home/zhtianyu/sg2042/reset_nfsrootfs' %}
+
+{% set user_commands = {'pxelinux_generate': {'do': '/home/zhtianyu/sg2042/generate_pxelinux', 'undo': 'echo "noop"'},
+                        'pre_os_command': {'do': '/home/zhtianyu/sg2042/reset_nfsrootfs', 'undo': 'echo "noop"'}} %}
 ```
 
 ### device type template 与 device dictionary 的关系
