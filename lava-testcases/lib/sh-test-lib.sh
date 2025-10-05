@@ -13,3 +13,17 @@ add_metric() {
 
     echo "${test_case} ${result} ${measurement} ${units}" | tee -a "${RESULT_FILE}"
 }
+
+report_pass() {
+    [ "$#" -ne 1 ] && error_msg "Usage: report_pass test_case"
+    # shellcheck disable=SC2039
+    local test_case="$1"
+    echo "${test_case} pass" | tee -a "${RESULT_FILE}"
+}
+
+report_fail() {
+    [ "$#" -ne 1 ] && error_msg "Usage: report_fail test_case"
+    # shellcheck disable=SC2039
+    local test_case="$1"
+    echo "${test_case} fail" | tee -a "${RESULT_FILE}"
+}
