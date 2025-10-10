@@ -35,8 +35,9 @@ done
 
 yum install -y gcc
 mkdir -p "${TEST_TMPDIR}"
+cp stream.c "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
-wget https://www.cs.virginia.edu/stream/FTP/Code/stream.c
+# wget https://www.cs.virginia.edu/stream/FTP/Code/stream.c
 gcc -O3 -fopenmp -DSTREAM_ARRAY_SIZE=${ARRAY_SIZE} -DNTIMES=${EXECUTION_COUNT} stream.c -o stream
 mkdir -p "${OUTPUT}"
 ./stream 2>&1 | tee "${TEST_LOG}"
