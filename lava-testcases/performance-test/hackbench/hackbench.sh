@@ -50,9 +50,7 @@ echo "Hackbench test options: ${OPTS}"
 # Run hackbench.
 yum install -y git make gcc numactl-devel
 mkdir -p "${TEST_TMPDIR}"
-cp ../../lib/parse_rt_tests_results.py "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
-chmod +x parse_rt_tests_results.py
 git clone git://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 cd rt-tests
 make && make install
