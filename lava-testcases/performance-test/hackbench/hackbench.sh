@@ -23,8 +23,8 @@ usage() {
     exit 1
 }
 
-while getopts "i:s:l:g:f:p:T:h" o; do
-    case "$o" in
+while getopts "i:s:l:g:f:p:T:h" opt; do
+    case "${opt}" in
         i) ITERATION="${OPTARG}" ;;
         s) DATASIZE="${OPTARG}" ;;
         l) LOOPS="${OPTARG}" ;;
