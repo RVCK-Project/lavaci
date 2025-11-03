@@ -12,9 +12,9 @@ priority: medium
 visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
-  format:
-  name:
-  description: ""
+  format: Lava-Test Test Definition 1.0
+  name: k1-bananapi-f3-test
+  description: "test for k1-bananapi-f3"
   version: "1.0"
 # ACTION_BLOCK
 actions:
