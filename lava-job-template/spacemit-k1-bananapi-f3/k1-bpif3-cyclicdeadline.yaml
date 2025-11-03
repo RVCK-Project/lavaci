@@ -1,4 +1,4 @@
-device_type: sg2042
+device_type: spacemit-k1-bananapi-f3
 job_name: ${job_name}
 timeouts:
   job:
@@ -12,9 +12,9 @@ priority: medium
 visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
-  format: Lava-Test Test Definition 1.0
-  name: sg2042-test
-  description: "test for sg2042"
+  format:
+  name:
+  description: ""
   version: "1.0"
 # ACTION_BLOCK
 actions:
@@ -27,6 +27,8 @@ actions:
     timeout:
       minutes: 120
     to: tftp
+    dtb:
+      url: ${kernel_image_url}
     kernel:
       url: ${kernel_image_url}
       type: image
@@ -34,10 +36,8 @@ actions:
       url: ${ramdisk_url}
       install_overlay: False
       install_modules: False
-    dtb:
-      url: ${dtb_url}
     persistent_nfs:
-      address: "{FILE_SERVER_IP}:/var/lib/lava/dispatcher/tmp/sg2042_rootfs"
+      address: "{FILE_SERVER_IP}:/var/lib/lava/dispatcher/tmp/k1_rootfs"
 - command:
     name: pxelinux_generate
     timeout:
@@ -46,10 +46,7 @@ actions:
 - boot:
     timeout:
       minutes: 30
-    method: u-boot
-    commands:
-      - "dhclient -ipv6=false eth0"
-      - "pxeboot -file tftp://{SERVER_IP}/pxelinux.cfg -server {SERVER_IP}"
+    method: minimal
     soft_reboot:
     - root
     - openEuler
@@ -61,6 +58,7 @@ actions:
       username: root
       password_prompt: "Password:"
       password: openEuler12#$
+# TEST_BLOCK
 - test:
       timeout:
         minutes: 10109
@@ -70,4 +68,9 @@ actions:
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
-            TEST_NUMBER: ${syscall_num}
+            INTERVAL: ${interval}
+            STEP: ${step}
+            THREADS: ${threads}
+            DURATION: ${duration}
+            ITERATIONS: ${iterations}
+            USER_BASELINE: ${user_baseline}

@@ -21,7 +21,7 @@ actions:
 - command:
     name: pre_os_command
     timeout:
-          minutes: 20
+      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     timeout:
@@ -30,6 +30,10 @@ actions:
     kernel:
       url: ${kernel_image_url}
       type: image
+    ramdisk:
+      url: ${ramdisk_url}
+      install_overlay: False
+      install_modules: False
     dtb:
       url: ${dtb_url}
     persistent_nfs:
@@ -37,7 +41,7 @@ actions:
 - command:
     name: pxelinux_generate
     timeout:
-          minutes: 20
+      minutes: 20
 # BOOT_BLOCK
 - boot:
     timeout:

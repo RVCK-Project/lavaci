@@ -56,7 +56,8 @@ install_ltp() {
 run_ltp() {
     # cd /opt/ltp
     mkdir -p "${OUTPUT}"
-    if [ "${TST_CMDFILES}" = "all" ]; then
+    if [ "${TST_CMDFILES}" = "all" ] || [ -z "${TST_CMDFILES}" ]; then
+        LOG_FILE="alltest"
         /opt/ltp/runltp -p -l ${OUTPUT}/LTP_${LOG_FILE}.log
     else
         /opt/ltp/runltp -p -f "${TST_CMDFILES}" -l ${OUTPUT}/LTP_${LOG_FILE}.log
