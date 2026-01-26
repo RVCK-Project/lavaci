@@ -37,7 +37,7 @@ actions:
       install_overlay: False
       install_modules: False
     persistent_nfs:
-      address: "{FILE_SERVER_IP}:/var/lib/lava/dispatcher/tmp/k1_rootfs"
+      address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
 - command:
     name: pxelinux_generate
     timeout:
