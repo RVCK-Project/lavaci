@@ -34,5 +34,5 @@ make && make install
 mkdir -p "${OUTPUT}"
 ptsematest -q -S -p 98 -D "${DURATION}" --json="${LOGFILE}"
 
-../parse_rt_tests_results.py pmqtest "${LOGFILE}" \
+../parse_rt_tests_results.py ptsematest "${LOGFILE}" \
     | tee -a "${RESULT_FILE}"
