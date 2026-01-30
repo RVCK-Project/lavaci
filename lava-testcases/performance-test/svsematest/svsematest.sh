@@ -4,10 +4,10 @@ set -x
 
 source ../../lib/sh-test-lib.sh
 
-TEST_TMPDIR="/root/sigwaittest"
+TEST_TMPDIR="/root/svsematest"
 OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
-LOGFILE="${OUTPUT}/sigwaittest.json"
+LOGFILE="${OUTPUT}/svsematest.json"
 
 PRIORITY="98"
 DURATION="5m"
@@ -36,8 +36,8 @@ cd rt-tests
 make && make install
 mkdir -p "${OUTPUT}"
 
-sigwaittest -q -t -a -p "${PRIORITY}" -D "${DURATION}" --json="${LOGFILE}"
+svsematest -q -t -a -p "${PRIORITY}" -D "${DURATION}" --json="${LOGFILE}"
 
 # Parse test log.
-../parse_rt_tests_results.py sigwaittest "${LOGFILE}" \
+../parse_rt_tests_results.py svsematest "${LOGFILE}" \
     | tee -a "${RESULT_FILE}"
