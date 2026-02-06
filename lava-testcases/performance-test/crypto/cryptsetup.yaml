@@ -1,0 +1,23 @@
+metadata:
+  name: cryptsetup-benchmark
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+params:
+  HASH: "sha1 sha256 sha512"
+  CIPHER: "aes-cbc_128 aes-cbc_256 aes-xts_256 aes-xts_512"
+run:
+  steps:
+    - cd lava-testcases/performance-test/crypto
+    - bash cryptsetup.sh -h "${HASH}" -c "${CIPHER}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
