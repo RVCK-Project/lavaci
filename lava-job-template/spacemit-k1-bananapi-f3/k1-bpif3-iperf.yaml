@@ -1,10 +1,9 @@
-device_type: spacemit-k1-bananapi-f3
 job_name: ${job_name}
 timeouts:
   job:
-    minutes: 10300
+    minutes: 10250
   action:
-   minutes: 10299
+   minutes: 10249
   actions:
     power-off:
       seconds: 60
@@ -13,17 +12,39 @@ visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
   format: Lava-Test Test Definition 1.0
-  name: k1-bananapi-f3-test
-  description: "test for k1-bananapi-f3"
+  name: spacemit-k1-bananapi-f3-test
+  description: "test for spacemit-k1-bananapi-f3"
   version: "1.0"
+
+protocols:
+  lava-multinode:
+    roles:
+      server:
+        device_type: spacemit-k1-bananapi-f3
+        count: 1
+        essential: True
+        timeout:
+          minutes: 30
+      client:
+        device_type: spacemit-k1-bananapi-f3
+        count: 1
+        timeout:
+          minutes: 30
+
 # ACTION_BLOCK
 actions:
 - command:
+    role:
+      - server
+      - client
     name: pre_os_command
     timeout:
       minutes: 20
 # DEPLOY_BLOCK
 - deploy:
+    role:
+      - server
+      - client
     timeout:
       minutes: 120
     to: tftp
@@ -39,11 +60,17 @@ actions:
     persistent_nfs:
       address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
 - command:
+    role:
+      - server
+      - client
     name: pxelinux_generate
     timeout:
       minutes: 20
 # BOOT_BLOCK
 - boot:
+    role:
+      - server
+      - client
     timeout:
       minutes: 30
     method: minimal
@@ -60,15 +87,28 @@ actions:
       password: openEuler12#$
 # TEST_BLOCK
 - test:
-      timeout:
-        minutes: 10109
-      definitions:
-        - repository: ${testcase_repo}
-          from: git
-          name: ${testitem_name}
-          path: ${testcase_path}
-          parameters:
-            PRIORITY: ${priority}
-            THREADS: ${threads}
-            DURATION: ${duration}
-            ITERATIONS: ${iterations}
+    role:
+      - server
+    timeout:
+      minutes: 10109
+    definitions:
+      - repository: ${testcase_repo}
+        from: git
+        name: ${testitem_name}
+        path: ${testcase_path}
+        parameters:
+          PORT: ${port}
+- test:
+    role:
+      - client
+    timeout:
+      minutes: 10109
+    definitions:
+      - repository: ${testcase_repo}
+        from: git
+        name: ${testitem_name}
+        path: ${testcase_path}
+        parameters:
+          TIME: ${time}
+          THREADS: ${threads}
+          AFFINITY: ${affinity}

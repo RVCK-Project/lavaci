@@ -27,3 +27,22 @@ report_fail() {
     local test_case="$1"
     echo "${test_case} fail" | tee -a "${RESULT_FILE}"
 }
+
+pipe_status() {
+    if [ $# -ne 2 ]; then
+       echo "Usage: pipe_status cmd1 cmd2" >&2
+       return 1
+    fi
+    
+    local cmd1="$1"
+    local cmd2="$2"
+
+    exec 4>&1
+    
+    local ret_val
+    ret_val=$({ { eval "${cmd1}" 3>&-; echo "$?" 1>&3; } 4>&- \
+              | eval "${cmd2}" 1>&4; } 3>&1)
+    exec 4>&-
+
+    return "${ret_val}"
+}

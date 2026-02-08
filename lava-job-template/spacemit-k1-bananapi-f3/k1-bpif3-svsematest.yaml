@@ -28,7 +28,7 @@ actions:
       minutes: 120
     to: tftp
     dtb:
-      url: ${kernel_image_url}
+      url: ${dtb_url}
     kernel:
       url: ${kernel_image_url}
       type: image
