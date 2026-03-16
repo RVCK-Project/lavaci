@@ -9,9 +9,7 @@ OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 
 mkdir -p "${TEST_TMPDIR}"
-cp ../../lib/parse_rt_tests_results.py "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
-chmod +x parse_rt_tests_results.py
 mkdir -p "${OUTPUT}"
 
 # Check openssl version
