@@ -117,14 +117,19 @@ END {
     print skip " " pass " " fail " " metric
 }' "${LOGFILE}")
 
+# 解析提取的数值
 SKIPPED=$(echo "${PARSE_RESULT}" | awk '{print $1}')
 PASSED=$(echo "${PARSE_RESULT}" | awk '{print $2}')
 FAILED=$(echo "${PARSE_RESULT}" | awk '{print $3}')
 METRICS_UNTRUST=$(echo "${PARSE_RESULT}" | awk '{print $4}')
 
-echo "${TESTNAME} skipped ${SKIPPED} skipped_tests" | tee -a "${RESULT_FILE}"
-echo "${TESTNAME} passed ${PASSED} passed_tests" | tee -a "${RESULT_FILE}"
-echo "${TESTNAME} failed ${FAILED} failed_tests" | tee -a "${RESULT_FILE}"
+echo "${TESTNAME} skip ${SKIPPED} skipped_tests" | tee -a "${RESULT_FILE}"
+echo "${TESTNAME} pass ${PASSED} passed_tests" | tee -a "${RESULT_FILE}"
+echo "${TESTNAME} fail ${FAILED} failed_tests" | tee -a "${RESULT_FILE}"
+
+# 提取测试时长
+# DURATION_NUM=$(grep 'successful run completed in' "${LOGFILE}" | awk '{for(i=1;i<=NF;i++)if($i=="in"){print $(i+1);exit}}')
+# DURATION_UNIT=$(grep 'successful run completed in' "${LOGFILE}" | awk '{for(i=1;i<=NF;i++)if($i=="in"){gsub(/[,.;]/,"",$(i+2));print $(i+2);exit}}')
 
 read DURATION_NUM DURATION_UNIT <<< $(grep 'successful run completed in' "${LOGFILE}" | awk '{for(i=1;i<=NF;i++)if($i=="in"){gsub(/[,.;]/,"",$(i+2)); print $(i+1), $(i+2); exit}}')
 
