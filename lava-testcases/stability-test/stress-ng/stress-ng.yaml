@@ -17,7 +17,7 @@ params:
   TIMEOUT: "7d"
 run:
   steps:
-    - cd lava-testcases/performance-test/stress-ng
+    - cd lava-testcases/stability-test/stress-ng
     - bash stress-ng.sh -T "${TIMEOUT}"
     - chmod +x ../../utils/send-to-lava.sh
     - ../../utils/send-to-lava.sh ./output/result.txt
