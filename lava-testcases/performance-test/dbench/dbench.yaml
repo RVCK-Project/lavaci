@@ -14,11 +14,11 @@ metadata:
     - sg2042
     - spacemit-k1-bananapi-f3
 params:
-  NUMBER: 1000
-  CONCURRENT: 100
+  TIMELIMIT: 60
+  CONCURRENT: 10
 run:
   steps:
-    - cd lava-testcases/performance-test/apache-bench
-    - bash apache-bench.sh -n "${NUMBER}" -c "${CONCURRENT}"
+    - cd lava-testcases/performance-test/dbench
+    - bash dbench.sh -T "${TIMELIMIT}" -c "${CONCURRENT}"
     - chmod +x ../../utils/send-to-lava.sh
     - ../../utils/send-to-lava.sh ./output/result.txt

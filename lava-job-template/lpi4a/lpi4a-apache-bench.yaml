@@ -59,4 +59,4 @@ actions:
           path: ${testcase_path}
           parameters:
             NUMBER: ${number}
-            CONCURENT: ${concurent}
+            CONCURRENT: ${concurrent}

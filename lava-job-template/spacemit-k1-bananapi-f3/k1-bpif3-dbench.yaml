@@ -68,5 +68,5 @@ actions:
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
-            NUMBER: ${number}
+            TIMELIMIT: ${timelimit}
             CONCURRENT: ${concurrent}

@@ -1,10 +1,10 @@
-device_type: spacemit-k1-bananapi-f3
+device_type: lpi4a
 job_name: ${job_name}
 timeouts:
   job:
-    minutes: 10300
+    minutes: 10250
   action:
-   minutes: 10299
+   minutes: 10249
   actions:
     power-off:
       seconds: 60
@@ -13,15 +13,11 @@ visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
   format: Lava-Test Test Definition 1.0
-  name: k1-bananapi-f3-test
-  description: "test for k1-bananapi-f3"
+  name: lpi4a-test
+  description: "test for lpi4a"
   version: "1.0"
 # ACTION_BLOCK
 actions:
-- command:
-    name: pre_os_command
-    timeout:
-      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     timeout:
@@ -32,21 +28,15 @@ actions:
     kernel:
       url: ${kernel_image_url}
       type: image
-    ramdisk:
-      url: ${ramdisk_url}
-      install_overlay: False
-      install_modules: False
-    persistent_nfs:
-      address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
-- command:
-    name: pxelinux_generate
-    timeout:
-      minutes: 20
+    nfsrootfs:
+      url: ${rootfs_image_url}
+      compression: gz
 # BOOT_BLOCK
 - boot:
     timeout:
-      minutes: 30
-    method: minimal
+      minutes: 20
+    method: u-boot
+    commands: nfs
     soft_reboot:
     - root
     - openEuler
@@ -68,5 +58,5 @@ actions:
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
-            NUMBER: ${number}
+            TIMELIMIT: ${timelimit}
             CONCURRENT: ${concurrent}
