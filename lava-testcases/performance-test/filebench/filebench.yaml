@@ -1,0 +1,27 @@
+metadata:
+  name: filebench
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+    - spacemit-k1-bananapi-f3
+params:
+  TESTDIR: "/tmp"
+  FILENUM: "10000"
+  THREAD: "50"
+  IOSIZE: "1m"
+  RUNTIME: "60"
+run:
+  steps:
+    - cd lava-testcases/performance-test/filebench
+    - bash filebench.sh -d "${TESTDIR}" -n "${FILENUM}" -t "${THREAD}" -s "${IOSIZE}" -T "${RUNTIME}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt

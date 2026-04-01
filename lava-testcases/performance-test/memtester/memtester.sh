@@ -8,7 +8,6 @@ TEST_TMPDIR="/root/memtester"
 OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 LOGFILE="${OUTPUT}/output.txt"
-# TEST_DIR="/mnt/dbench-test"
 
 MEMORY="2G"
 LOOPS="1"
