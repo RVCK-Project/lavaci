@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -x
 
 source ../../lib/sh-test-lib.sh
