@@ -227,6 +227,72 @@ actions:
 不建议将 lava-test-case 命令与 MultiNode API 调用结合使用。首先，lava-test-case 会忽略 API 调用中可能出现的任何错误，而 lava-test-shell 会将其视为成功。其次，这样会导致每个 API 调用生成重复的测试用例（一个来自 lava-test-case，另一个来自 API 命令）。
 
 
+### 配置 multinode 所需的 lava-coordinator
+
+如果后续需要提交 `multinode` 类型的 job，那么除了 `lava-server` 与 `lava-worker` 之外，还需要额外部署一个 `lava-coordinator` 服务。这个服务负责在多个 node 之间转发同步消息，例如 `lava-sync`、`lava-send`、`lava-wait` 等。
+
+> 官方说明中，`multinode` 的 worker 应共享**同一个** `lava-coordinator`。通常直接部署在 server 上，但也可以单独部署到另一台机器。
+
+#### 安装 lava-coordinator
+
+建议直接安装在 server 所在机器：
+
+```Bash
+sudo apt install lava-coordinator
+```
+
+若机器之间存在防火墙，还需要放行 `lava-coordinator` 默认使用的 `3079/TCP` 端口。
+
+确认服务有没有监听，在 server 上：
+
+```bash
+ss -lntp | grep 3079
+```
+
+#### 配置 coordinator 地址
+
+`lava-coordinator` 与各个 worker 都需要使用 `/etc/lava-coordinator/lava-coordinator.conf` 这个配置文件，需要在 `/etc` 目录下新建 `lava-coordinator` 目录，并在该目录下新建 `lava-coordinator.conf`。对于同一个 LAVA 实例下参与 `multinode` 的所有 worker，该文件内容应保持一致，并都指向**同一个** coordinator。
+
+配置示例如下：
+
+```JSON
+{
+    "port": 3079,
+    "blocksize": 4096,
+    "poll_delay": 3,
+    "coordinator_hostname": "10.20.193.51"
+}
+```
+
+字段说明：
+
+* `coordinator_hostname`：`lava-coordinator` 所在机器的域名或 IP，所有 worker 都应填写这里
+* `port`：协调器监听端口，默认 `3079`
+* `blocksize`：通信块大小，worker 与 coordinator 需保持一致
+* `poll_delay`：worker 轮询 coordinator 的间隔，单位为秒
+
+如果 `lava-coordinator` 就部署在 server 上，那么：
+
+* 在 server 本机兼作 worker 的场景下，可写 `localhost`
+* 在远端 worker 上，建议填写 server 的**实际可达 IP 或域名**，不要写 `localhost`
+
+#### 启动与检查服务
+
+完成配置后，在 server 启动并设置开机自启：
+
+```Bash
+sudo systemctl enable --now lava-coordinator
+sudo systemctl status lava-coordinator
+```
+
+#### 注意事项
+
+* 每台参与 `multinode` 的 worker 都需要存在 `/etc/lava-coordinator/lava-coordinator.conf`
+* 同一个实例下的这些 worker 必须指向**同一个** `lava-coordinator`
+* 修改 worker 上的 coordinator 配置文件后，通常**不需要**重启 `lava-coordinator` 守护进程
+* **不要在有 multinode 任务运行时重启 `lava-coordinator`**，否则正在同步的任务大概率会失败
+
+配置完成后，就可以在 job YAML 中通过 `lava-multinode` 定义角色，并在测试步骤中使用 `lava-sync`、`lava-send`、`lava-wait` 等命令完成多节点协同。
 
 
 
@@ -234,9 +300,12 @@ actions:
 
 参考：
 
-https://validation.linaro.org/static/docs/v2/multinode.html
+https://docs.lavasoftware.org/lava/multinode.html
 
-https://validation.linaro.org/static/docs/v2/multinodeapi.html
+https://docs.lavasoftware.org/lava/multinodeapi.html
 
-https://validation.linaro.org/static/docs/v2/writing-multinode.html
+https://docs.lavasoftware.org/lava/writing-multinode.html
 
+https://docs.lavasoftware.org/lava/first-installation.html#lava-coordinator-setup
+
+https://docs.lavasoftware.org/lava/simple-admin.html#lava-coordinator
