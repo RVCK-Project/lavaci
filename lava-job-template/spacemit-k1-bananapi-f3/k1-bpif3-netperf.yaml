@@ -23,13 +23,11 @@ protocols:
         device_type: spacemit-k1-bananapi-f3
         count: 1
         essential: True
-        timeout:
-          minutes: 30
       client:
         device_type: spacemit-k1-bananapi-f3
         count: 1
-        timeout:
-          minutes: 30
+    timeout:
+      minutes: 30
 
 # ACTION_BLOCK
 actions:

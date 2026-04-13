@@ -12,32 +12,23 @@ visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
   format: Lava-Test Test Definition 1.0
-  name: spacemit-k1-bananapi-f3-test
-  description: "test for spacemit-k1-bananapi-f3"
+  name: lpi4a-test
+  description: "test for lpi4a"
   version: "1.0"
-
 protocols:
   lava-multinode:
     roles:
       server:
-        device_type: spacemit-k1-bananapi-f3
+        device_type: lpi4a
         count: 1
         essential: True
       client:
-        device_type: spacemit-k1-bananapi-f3
+        device_type: lpi4a
         count: 1
     timeout:
-      minutes: 30
-
+        minutes: 1440
 # ACTION_BLOCK
 actions:
-- command:
-    role:
-      - server
-      - client
-    name: pre_os_command
-    timeout:
-      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     role:
@@ -51,27 +42,18 @@ actions:
     kernel:
       url: ${kernel_image_url}
       type: image
-    ramdisk:
-      url: ${ramdisk_url}
-      install_overlay: False
-      install_modules: False
-    persistent_nfs:
-      address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
-- command:
-    role:
-      - server
-      - client
-    name: pxelinux_generate
-    timeout:
-      minutes: 20
+    nfsrootfs:
+      url: ${rootfs_image_url}
+      compression: gz
 # BOOT_BLOCK
 - boot:
     role:
       - server
       - client
     timeout:
-      minutes: 30
-    method: minimal
+      minutes: 20
+    method: u-boot
+    commands: nfs
     soft_reboot:
     - root
     - openEuler
@@ -94,8 +76,7 @@ actions:
         from: git
         name: ${testitem_name}
         path: ${testcase_path}
-        parameters:
-          PORT: ${port}
+
 - test:
     role:
       - client
@@ -107,6 +88,6 @@ actions:
         name: ${testitem_name}
         path: ${testcase_path}
         parameters:
-          TIME: ${time}
+          WORKLOAD: ${workload}
+          RECORDCOUNT: ${recordcount}
           THREADS: ${threads}
-          AFFINITY: ${affinity}
