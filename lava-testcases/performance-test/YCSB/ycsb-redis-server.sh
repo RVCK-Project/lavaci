@@ -30,4 +30,4 @@ else
 fi
 
 mkdir -p "${OUTPUT}"
-echo "netperf_server_started ${result}" | tee -a "${RESULT_FILE}"
+echo "redis_server_started ${result}" | tee -a "${RESULT_FILE}"

@@ -1,0 +1,25 @@
+metadata:
+  name: qperf-tcpudp-client
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+    - spacemit-k1-bananapi-f3
+params:
+  TIME: "30"
+  MSG_SIZE_TCP: "32K"
+  MSG_SIZE_UDP: "1400"
+run:
+  steps:
+    - cd lava-testcases/performance-test/qperf
+    - bash qperf-tcpudp-client.sh -t "${TIME}" -m "${MSG_SIZE_TCP}" -u "${MSG_SIZE_UDP}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
