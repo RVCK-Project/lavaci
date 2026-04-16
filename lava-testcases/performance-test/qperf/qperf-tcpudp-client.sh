@@ -18,7 +18,7 @@ usage() {
     exit 1
 }
 
-while getopts "t:mt:mu:" opt; do
+while getopts "t:m:u:" opt; do
     case "${opt}" in
         t) TIME="${OPTARG}" ;;
         m) MSG_SIZE_TCP="${OPTARG}" ;;
