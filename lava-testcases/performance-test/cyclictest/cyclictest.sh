@@ -33,12 +33,6 @@ while getopts ":p:i:t:a:D:h:" opt; do
     esac
 done
 
-if [ -n "${HISTOGRAM}" ]; then
-    HISTOGRAM="-h ${HISTOGRAM}"
-else
-    HISTOGRAM=""
-fi
-
 # Run cyclictest.
 yum install -y git make gcc numactl-devel
 mkdir -p "${TEST_TMPDIR}"
@@ -49,9 +43,13 @@ git clone git://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 cd rt-tests
 make && make install
 mkdir -p "${OUTPUT}"
-cyclictest -q -p "${PRIORITY}" -i "${INTERVAL}" -t "${THREADS}" -a "${AFFINITY}" \
-    -D "${DURATION}" "${HISTOGRAM}" -m --json="${TEST_LOG}"
-
+if [ -n "${HISTOGRAM}" ]; then
+    cyclictest -q -p "${PRIORITY}" -i "${INTERVAL}" -t "${THREADS}" -a "${AFFINITY}" \
+        -D "${DURATION}" -h "${HISTOGRAM}" -m --json="${TEST_LOG}"
+else
+    cyclictest -q -p "${PRIORITY}" -i "${INTERVAL}" -t "${THREADS}" -a "${AFFINITY}" \
+        -D "${DURATION}" -m --json="${TEST_LOG}"
+fi
 # Parse test log.
 ../parse_rt_tests_results.py cyclictest "${TEST_LOG}" \
     | tee -a "${RESULT_FILE}"

@@ -7,7 +7,7 @@ metadata:
     os:
         - openEuler-riscv64
     scope:
-        - LTP functions
+        - performance
     devices:
       - qemu
       - lpi4a

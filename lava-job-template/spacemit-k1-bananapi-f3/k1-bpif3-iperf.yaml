@@ -94,8 +94,6 @@ actions:
         from: git
         name: ${testitem_name}
         path: ${testcase_path}
-        parameters:
-          PORT: ${port}
 - test:
     role:
       - client
