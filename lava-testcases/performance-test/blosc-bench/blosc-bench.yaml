@@ -1,0 +1,25 @@
+metadata:
+    name: ltp
+    format: "Lava-Test Test Definition 1.0"
+    description: "Run sysbench on openEuler RISC-V"
+    maintainer:
+        - wujie22@iscas.ac.cn
+    os:
+        - openEuler-riscv64
+    scope:
+        - performance
+    devices:
+      - qemu
+      - lpi4a
+      - sg2042
+      - spacemit-k1-bananapi-f3
+params:
+    FILTER: noshuffle
+    THREADS: 2
+run:
+    steps:
+        - cd lava-testcases/performance-test/blosc-bench/
+        - chmod +x blosc-bench.sh
+        - ./blosc-bench.sh -f "${FILTER}" -n "${THREADS}"
+        - chmod +x ../../utils/send-to-lava.sh
+        - ../../utils/send-to-lava.sh ./output/result.txt  
