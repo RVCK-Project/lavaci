@@ -73,6 +73,7 @@ for comp in blosclz lz4 lz4hc zlib zstd; do
         # 输出结果
         printf "blosc_t%s_%s_level%s_comp pass %s MB/s\n", t, algo, lvl, comp_speed
         printf "blosc_t%s_%s_level%s_decomp pass %s MB/s\n", t, algo, lvl, decomp_speed
+        printf "blosc_t%s_%s_level%s_ratio pass %s ratio\n", t, algo, lvl, ratio
     }
 
     # 总耗时与往返速度
@@ -81,7 +82,6 @@ for comp in blosclz lz4 lz4hc zlib zstd; do
         if (match($0, /[0-9.]+ MB\/s/))
             round = substr($0, RSTART, RLENGTH - 5)
 
-        printf "blosc_%s_ratio pass %s ratio\n", algo, ratio
         printf "blosc_%s_round_trip_mbs pass %s MB/s\n", algo, round
     }
     ' "${LOGFILE}-${comp}.txt" | tee -a "${RESULT_FILE}"
