@@ -1,5 +1,5 @@
 metadata:
-    name: blosc-bench
+    name: libMicro
     format: "Lava-Test Test Definition 1.0"
     description: "Run sysbench on openEuler RISC-V"
     maintainer:
@@ -13,13 +13,10 @@ metadata:
       - lpi4a
       - sg2042
       - spacemit-k1-bananapi-f3
-params:
-    FILTER: noshuffle
-    THREADS: 2
 run:
     steps:
-        - cd lava-testcases/performance-test/blosc-bench/
-        - chmod +x blosc-bench.sh
-        - ./blosc-bench.sh -f "${FILTER}" -n "${THREADS}"
+        - cd lava-testcases/performance-test/libMicro/
+        - chmod +x libMicro.sh
+        - ./libMicro.sh
         - chmod +x ../../utils/send-to-lava.sh
-        - ../../utils/send-to-lava.sh ./output/result.txt  
+        - ../../utils/send-to-lava.sh ./output/result.txt

@@ -27,12 +27,6 @@ while getopts "A:t:P:" opt; do
     esac
 done
 
-if "${AFFINITY}"; then
-    AFFINITY="-A ${AFFINITY}"
-else
-    AFFINITY=""
-fi
-
 # Run iperf client.
 yum install -y iperf3
 mkdir -p "${TEST_TMPDIR}"
@@ -40,19 +34,27 @@ cd "${TEST_TMPDIR}"
 lava-wait server-ready
 cat /tmp/lava_multi_node_cache.txt
 SERVER=$(grep "serverip" /tmp/lava_multi_node_cache.txt | awk -F"=" '{print $NF}')
-mkdir -p "${OUTPUT}"
-iperf3 -c "${SERVER}" -t "${TIME}" -P "${THREADS}" "${AFFINITY}" 2>&1 | tee "${LOGFILE}"
-
-
-# Parse test log.
-if [ "${THREADS}" -eq 1 ]; then
-    grep -E "(sender|receiver)" "${LOGFILE}" \
-        | awk '{printf("iperf_%s pass %s %s\n", $NF,$7,$8)}' \
-        | tee -a "${RESULT_FILE}"
-elif [ "${THREADS}" -gt 1 ]; then
-    grep -E "[SUM].*(sender|receiver)" "${LOGFILE}" \
-        | awk '{printf("iperf_%s pass %s %s\n", $NF,$6,$7)}' \
-        | tee -a "${RESULT_FILE}"
+systemctl stop firewalld 2>/dev/null
+ip address
+if ping -c 10 "${SERVER}"; then
+    mkdir -p "${OUTPUT}"
+    if [ -n "${AFFINITY}" ]; then
+        iperf3 -c "${SERVER}" -t "${TIME}" -P "${THREADS}" -A "${AFFINITY}" 2>&1 | tee "${LOGFILE}"
+    else
+        iperf3 -c "${SERVER}" -t "${TIME}" -P "${THREADS}" 2>&1 | tee "${LOGFILE}"
+    fi
+    # Parse test log.
+    if [ "${THREADS}" -eq 1 ]; then
+        grep -E "(sender|receiver)" "${LOGFILE}" \
+            | awk '{printf("iperf_%s pass %s %s\n", $NF,$7,$8)}' \
+            | tee -a "${RESULT_FILE}"
+    elif [ "${THREADS}" -gt 1 ]; then
+        grep -E "[SUM].*(sender|receiver)" "${LOGFILE}" \
+            | awk '{printf("iperf_%s pass %s %s\n", $NF,$6,$7)}' \
+            | tee -a "${RESULT_FILE}"
+    fi
+    else
+        echo "Ping ${SERVER} failed"
 fi
 
 lava-send client-done

@@ -1,5 +1,5 @@
 metadata:
-    name: ltp
+    name: BabelStream
     format: "Lava-Test Test Definition 1.0"
     description: "Run sysbench on openEuler RISC-V"
     maintainer:

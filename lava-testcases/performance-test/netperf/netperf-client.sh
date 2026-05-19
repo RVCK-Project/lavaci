@@ -43,7 +43,7 @@ for i in ${MSG_SIZE//,/ }; do
 done
 
 for i in ${MSG_SIZE//,/ }; do
-    netperf -t UDP_STREAM -H "${SERVER}" -p "${PORT}" -l "${TIME}" -- -m "${i}" 2>&1 | tee "${LOGFILE}"
+    netperf -t UDP_STREAM -H "${SERVER}" -p "${PORT}" -l "${TIME}" -- -m "${i}" -R 1 2>&1 | tee "${LOGFILE}"
     # throughput=$(grep -E "^[0-9]" "${LOGFILE}" | head -n 1 | awk '{print $NF}')
     # echo "netperf_TCP_STREAM_${i}bytes pass ${throughput} Mbits/sec\n" | tee -a "${RESULT_FILE}"  
     grep -E "^[0-9]" "${LOGFILE}" | awk -v size="${i}" 'NR==1 {printf "netperf_UDP_STREAM_%sbytes pass %s Mbits/sec\n", size, $NF}' | tee -a "${RESULT_FILE}"

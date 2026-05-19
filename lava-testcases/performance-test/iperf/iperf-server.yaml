@@ -1,5 +1,5 @@
 metadata:
-  name: iperf-server
+  name: iperf
   format: "Lava-Test Test Definition 1.0"
   description: "Run fio on RISC-V device"
   maintainer:
@@ -13,8 +13,6 @@ metadata:
     - lpi4a
     - sg2042
     - spacemit-k1-bananapi-f3
-params:
-  PORT: "5201"
 run:
   steps:
     - cd lava-testcases/performance-test/iperf

@@ -1,5 +1,5 @@
 metadata:
-  name: iperf-client
+  name: pi_stress
   format: "Lava-Test Test Definition 1.0"
   description: "Run fio on RISC-V device"
   maintainer:

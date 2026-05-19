@@ -9,9 +9,6 @@ OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 
 
-PORT="5201"
-
-
 usage() {
     echo "Usage: $0 [-p port ]" 1>&2
     exit 1
@@ -32,15 +29,13 @@ cd "${TEST_TMPDIR}"
 
 systemctl stop firewalld
 if [ "$(systemctl is-active firewalld)" = "inactive" ]; then
-    if [ -z "${PORT}" ]; then
-        iperf3 -s -D
-    else
-        iperf3 -s -p "${PORT}" -D
-    fi
+    iperf3 -s -p 5201 -D
 else
     lava-test-raise "server firewalld cannot stop"
 fi
-
+ip address
+ps -ef | grep iperf3
+netstat -tulpn | grep 5201
 if pgrep -x "iperf3" > /dev/null; then
     result="pass"
     ETH=$(ip route get 8.8.8.8 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="dev"){print $(i+1); exit}}')

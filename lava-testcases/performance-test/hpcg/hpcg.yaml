@@ -1,5 +1,5 @@
 metadata:
-    name: ltp
+    name: hpcg
     format: "Lava-Test Test Definition 1.0"
     description: "Run HPCG benchmark on openEuler RISC-V"
     maintainer:

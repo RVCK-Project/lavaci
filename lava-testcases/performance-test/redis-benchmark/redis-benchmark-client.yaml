@@ -1,5 +1,5 @@
 metadata:
-  name: redis-client
+  name: redis-benchmark-client
   format: "Lava-Test Test Definition 1.0"
   description: "Run fio on RISC-V device"
   maintainer:
