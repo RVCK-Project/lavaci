@@ -55,9 +55,9 @@ actions:
     - openEuler
     - reboot
     - The system will reboot now!
-    prompts: ["root@openeuler-riscv64", "login:", "Password:"]
+    prompts: ["root@riscv64", "login:", "Password:"]
     auto_login:
-      login_prompt: "(.*)openeuler-riscv64 login:(.*)"
+      login_prompt: "(.*)riscv64 login:(.*)"
       username: root
       password_prompt: "Password:"
       password: openEuler12#$

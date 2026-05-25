@@ -1,0 +1,113 @@
+job_name: ${qemu_job_name}
+timeouts:
+  job:
+    minutes: 10150
+  action:
+   minutes: 10149
+  actions:
+    power-off:
+      seconds: 60
+priority: medium
+visibility: public
+metadata:
+  # please change these fields when modifying this job for your own tests.
+  format: Lava-Test Test Definition 1.0
+  name: qemu-test
+  description: "test for qemu"
+  version: "1.0"
+protocols:
+  lava-multinode:
+    roles:
+      server:
+        device_type: qemu
+        count: 1
+        essential: True
+        context:
+          arch: riscv64
+          machine: virt
+          guestfs_interface: virtio
+          extra_options:
+            - -machine virt
+            - -nographic
+            - -smp 8
+            - -m 8G
+            - -device virtio-blk-device,drive=hd0
+            - -append "root=/dev/vda rw console=ttyS0 selinux=0"
+            - -netdev bridge,id=net0,br=br-lava
+            - -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:03
+      client:
+        device_type: qemu
+        count: 1
+        context:
+          arch: riscv64
+          machine: virt
+          guestfs_interface: virtio
+          extra_options:
+            - -machine virt
+            - -nographic
+            - -smp 8
+            - -m 8G
+            - -device virtio-blk-device,drive=hd0
+            - -append "root=/dev/vda rw console=ttyS0 selinux=0"
+            - -netdev bridge,id=net0,br=br-lava
+            - -device virtio-net-pci,netdev=net0,mac=52:54:00:12:34:04
+    timeout:
+      minutes: 60
+# ACTION_BLOCK
+actions:
+# DEPLOY_BLOCK
+- deploy:
+    role:
+      - server
+      - client
+    timeout:
+      minutes: 20
+    to: tmpfs
+    images:
+      kernel:
+        image_arg: -kernel {kernel}
+        url: ${qemu_kernel_image_url}
+      rootfs:
+        image_arg: -drive file={rootfs},format=raw,id=hd0,if=none
+        url: ${qemu_rootfs_image_url}
+        compression: zstd
+# BOOT_BLOCK
+- boot:
+    role:
+      - server
+      - client
+    timeout:
+      minutes: 20
+    method: qemu
+    media: tmpfs
+    prompts: ["root@riscv64"]
+    auto_login:
+      login_prompt: "riscv64 login:"
+      username: root
+      password_prompt: "Password:"
+      password: openEuler12#$
+# TEST_BLOCK
+- test:
+    role:
+      - server
+    timeout:
+      minutes: 10109
+    definitions:
+      - repository: ${testcase_repo}
+        from: git
+        name: ${testitem_name}
+        path: ${testcase_url}
+- test:
+    role:
+      - client
+    timeout:
+      minutes: 10109
+    definitions:
+      - repository: ${testcase_repo}
+        from: git
+        name: ${testitem_name}
+        path: ${testcase_url}
+        parameters:
+          TIME: ${time}
+          THREADS: ${threads}
+          AFFINITY: ${affinity}
