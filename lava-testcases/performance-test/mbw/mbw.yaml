@@ -1,0 +1,24 @@
+metadata:
+  name: mbw
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+    - spacemit-k1-bananapi-f3
+params:
+  Number_OF_RUNS: 10
+  ARRAY_SIZE: 256
+run:
+  steps:
+    - cd lava-testcases/performance-test/mbw
+    - bash mbw.sh -n "${Number_OF_RUNS}" -s "${ARRAY_SIZE}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
