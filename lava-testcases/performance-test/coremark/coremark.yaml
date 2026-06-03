@@ -13,9 +13,6 @@ metadata:
     - lpi4a
     - sg2042
     - spacemit-k1-bananapi-f3
-params:
-  NUMBER: 1000
-  CONCURENT: 100
 run:
   steps:
     - cd lava-testcases/performance-test/coremark
