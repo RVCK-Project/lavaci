@@ -4,7 +4,7 @@ set -x
 
 source ../../lib/sh-test-lib.sh
 
-TEST_TMPDIR="/root/redis-benchmark"
+TEST_TMPDIR="/root/memtier-benchmark"
 OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 
