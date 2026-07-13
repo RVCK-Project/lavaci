@@ -1,0 +1,40 @@
+metadata:
+  name: schbench
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+    - spacemit-k1-bananapi-f3
+params:
+  MESSAGE_THREADS: 2
+  MESSAGE_CPUS: "auto"
+  WORKER_CPUS: "auto"
+  RUNTIME: 300
+  WARMUPTIME: 30
+  INTERVALTIME: 30
+  CACHE_FOOTPRINT: 256
+  OPERATIONS: 5
+  SLEEP_USEC: 100
+run:
+  steps:
+    - cd lava-testcases/performance-test/schbench
+    - bash schbench.sh \
+        -m "${MESSAGE_THREADS}" \
+        -M "${MESSAGE_CPUS}" \
+        -W "${WORKER_CPUS}" \
+        -r "${RUNTIME}" \
+        -w "${WARMUPTIME}" \
+        -i "${INTERVALTIME}" \
+        -F "${CACHE_FOOTPRINT}" \
+        -n "${OPERATIONS}" \
+        -s "${SLEEP_USEC}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
