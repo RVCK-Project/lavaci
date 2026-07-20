@@ -1,0 +1,24 @@
+metadata:
+    name: toolchain-smoke
+    format: "Lava-Test Test Definition 1.0"
+    description: "Run GCC/G++/make/binutils smoke tests on openEuler RISC-V"
+    maintainer:
+        - zhangtianyu@iscas.ac.cn
+    os:
+        - openEuler-riscv64
+    scope:
+        - compatibility
+        - toolchain
+    devices:
+        - qemu
+        - lpi4a
+        - sg2042
+        - spacemit-k1-bananapi-f3
+
+run:
+    steps:
+        - cd lava-testcases/compatibility-test/toolchain-smoke/
+        - chmod +x toolchain-smoke.sh
+        - ./toolchain-smoke.sh
+        - chmod +x ../../utils/send-to-lava.sh
+        - ../../utils/send-to-lava.sh ./output/result.txt
