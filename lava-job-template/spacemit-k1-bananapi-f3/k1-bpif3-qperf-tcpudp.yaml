@@ -27,17 +27,10 @@ protocols:
         device_type: spacemit-k1-bananapi-f3
         count: 1
     timeout:
-      minutes: 30
+      minutes: 10249
 
 # ACTION_BLOCK
 actions:
-- command:
-    role:
-      - server
-      - client
-    name: pre_os_command
-    timeout:
-      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     role:
@@ -55,15 +48,9 @@ actions:
       url: ${ramdisk_url}
       install_overlay: False
       install_modules: False
-    persistent_nfs:
-      address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
-- command:
-    role:
-      - server
-      - client
-    name: pxelinux_generate
-    timeout:
-      minutes: 20
+    nfsrootfs:
+      url: ${rootfs_image_url}
+      compression: gz
 # BOOT_BLOCK
 - boot:
     role:
@@ -71,12 +58,8 @@ actions:
       - client
     timeout:
       minutes: 30
-    method: minimal
-    soft_reboot:
-    - root
-    - openEuler
-    - reboot
-    - The system will reboot now!
+    method: u-boot
+    commands: nfs
     prompts: ["root@riscv64", "login:", "Password:"]
     auto_login:
       login_prompt: "(.*)riscv64 login:(.*)"
@@ -88,7 +71,7 @@ actions:
     role:
       - server
     timeout:
-      minutes: 10109
+      minutes: 10099
     definitions:
       - repository: ${testcase_repo}
         from: git
@@ -99,7 +82,7 @@ actions:
     role:
       - client
     timeout:
-      minutes: 10109
+      minutes: 10099
     definitions:
       - repository: ${testcase_repo}
         from: git

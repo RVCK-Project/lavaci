@@ -1,4 +1,4 @@
-device_type: spacemit-k1-bananapi-f3
+device_type: sg2042
 job_name: ${job_name}
 timeouts:
   job:
@@ -12,12 +12,16 @@ priority: medium
 visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
-  format:
-  name:
-  description: ""
+  format: Lava-Test Test Definition 1.0
+  name: sg2042-test
+  description: "test for sg2042"
   version: "1.0"
 # ACTION_BLOCK
 actions:
+- command:
+    name: pre_os_command
+    timeout:
+          minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     timeout:
@@ -32,33 +36,41 @@ actions:
       url: ${ramdisk_url}
       install_overlay: False
       install_modules: False
-    nfsrootfs:
-      url: ${rootfs_image_url}
-      compression: gz
+    persistent_nfs:
+      address: "{FILE_SERVER_IP}:/var/lib/lava/dispatcher/tmp/sg2042_rootfs"
+- command:
+    name: pxelinux_generate
+    timeout:
+          minutes: 20
 # BOOT_BLOCK
 - boot:
     timeout:
       minutes: 30
     method: u-boot
-    commands: nfs
+    commands:
+      - "dhclient -ipv6=false eth0"
+      - "pxeboot -file tftp://{SERVER_IP}/pxelinux.cfg -server {SERVER_IP}"
+    soft_reboot:
+    - root
+    - openEuler
+    - reboot
+    - The system will reboot now!
     prompts: ["root@riscv64", "login:", "Password:"]
     auto_login:
       login_prompt: "(.*)riscv64 login:(.*)"
       username: root
       password_prompt: "Password:"
       password: openEuler12#$
-# TEST_BLOCK
 - test:
       timeout:
-        minutes: 10149
+        minutes: 10109
       definitions:
         - repository: ${testcase_repo}
           from: git
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
+            WARMUP_ITERATIONS: ${warmup_iterations}
+            MEASUREMENT_ITERATIONS: ${measurement_iterations}
+            FORKS: ${forks}
             THREADS: ${threads}
-            HTTP_CONNECTIONS: ${http_connections}
-            DURATION: ${duration}
-            TIMEOUT: ${timeout}
-            TARGET_URL: ${target_url}

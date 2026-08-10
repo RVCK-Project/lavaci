@@ -57,8 +57,7 @@ actions:
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
+            WARMUP_ITERATIONS: ${warmup_iterations}
+            MEASUREMENT_ITERATIONS: ${measurement_iterations}
+            FORKS: ${forks}
             THREADS: ${threads}
-            HTTP_CONNECTIONS: ${http_connections}
-            DURATION: ${duration}
-            TIMEOUT: ${timeout}
-            TARGET_URL: ${target_url}

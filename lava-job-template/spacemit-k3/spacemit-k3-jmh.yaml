@@ -1,4 +1,4 @@
-device_type: spacemit-k1-bananapi-f3
+device_type: spacemit-k3
 job_name: ${job_name}
 timeouts:
   job:
@@ -12,9 +12,9 @@ priority: medium
 visibility: public
 metadata:
   # please change these fields when modifying this job for your own tests.
-  format:
-  name:
-  description: ""
+  format: Lava-Test Test Definition 1.0
+  name: spacemit-k3-test
+  description: "test for spacemit-k3"
   version: "1.0"
 # ACTION_BLOCK
 actions:
@@ -41,9 +41,9 @@ actions:
       minutes: 30
     method: u-boot
     commands: nfs
-    prompts: ["root@riscv64", "login:", "Password:"]
+    prompts: ["root@riscv64"]
     auto_login:
-      login_prompt: "(.*)riscv64 login:(.*)"
+      login_prompt: "riscv64 login:"
       username: root
       password_prompt: "Password:"
       password: openEuler12#$
@@ -57,8 +57,7 @@ actions:
           name: ${testitem_name}
           path: ${testcase_path}
           parameters:
+            WARMUP_ITERATIONS: ${warmup_iterations}
+            MEASUREMENT_ITERATIONS: ${measurement_iterations}
+            FORKS: ${forks}
             THREADS: ${threads}
-            HTTP_CONNECTIONS: ${http_connections}
-            DURATION: ${duration}
-            TIMEOUT: ${timeout}
-            TARGET_URL: ${target_url}

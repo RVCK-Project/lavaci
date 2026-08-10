@@ -18,10 +18,6 @@ metadata:
   version: "1.0"
 # ACTION_BLOCK
 actions:
-- command:
-    name: pre_os_command
-    timeout:
-      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     timeout:
@@ -36,22 +32,15 @@ actions:
       url: ${ramdisk_url}
       install_overlay: False
       install_modules: False
-    persistent_nfs:
-      address: "{FILE_SERVER_IP}:{NFSROOTFS_PATH}"
-- command:
-    name: pxelinux_generate
-    timeout:
-      minutes: 20
+    nfsrootfs:
+      url: ${rootfs_image_url}
+      compression: gz
 # BOOT_BLOCK
 - boot:
     timeout:
       minutes: 30
-    method: minimal
-    soft_reboot:
-    - root
-    - openEuler
-    - reboot
-    - The system will reboot now!
+    method: u-boot
+    commands: nfs
     prompts: ["root@riscv64", "login:", "Password:"]
     auto_login:
       login_prompt: "(.*)riscv64 login:(.*)"
@@ -61,7 +50,7 @@ actions:
 # TEST_BLOCK
 - test:
       timeout:
-        minutes: 10109
+        minutes: 10149
       definitions:
         - repository: ${testcase_repo}
           from: git

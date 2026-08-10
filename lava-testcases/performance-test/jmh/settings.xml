@@ -1,0 +1,10 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>huaweicloud</id>
+            <name>huaweicloud</name>
+            <mirrorOf>*</mirrorOf>
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
+        </mirror>
+    </mirrors>
+</settings>
