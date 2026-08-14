@@ -25,7 +25,7 @@ while getopts "e:" o; do
 done
 
 # Run test
-yum install -y zstd lz4 xz gcc gcc-c++ make git
+dnf install -y zstd lz4 xz gcc gcc-c++ make git
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

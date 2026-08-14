@@ -26,7 +26,7 @@ while getopts "m:l:" o; do
 done
 
 # Run test
-yum install -y memtester
+dnf install -y memtester
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

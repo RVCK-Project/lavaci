@@ -10,7 +10,7 @@ RESULT_FILE="${OUTPUT}/result.txt"
 DB_PWD="123456"
 
 # run mysql server
-yum install -y mysql-server --setopt=tsflags=nocaps
+dnf install -y mysql-server --setopt=tsflags=nocaps
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

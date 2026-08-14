@@ -26,7 +26,7 @@ while getopts "t:c:d:" o; do
 done
 
 # Run netperf client.
-yum install -y git gcc gcc-c++ make autoconf automake libtool libevent-devel pkgconfig zlib-devel openssl-devel
+dnf install -y git gcc gcc-c++ make autoconf automake libtool libevent-devel pkgconfig zlib-devel openssl-devel
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 git clone https://github.com/RedisLabs/memtier_benchmark.git

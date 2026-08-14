@@ -9,7 +9,7 @@ OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 
 # run postgresql server
-yum install -y postgresql-server postgresql-contrib
+dnf install -y postgresql-server postgresql-contrib
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

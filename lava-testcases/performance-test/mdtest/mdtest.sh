@@ -32,7 +32,7 @@ while getopts "p:d:b:f:i:" o; do
 done
 
 # Run test
-yum install -y gcc gcc-c++ make openmpi openmpi-devel git automake autoconf
+dnf install -y gcc gcc-c++ make openmpi openmpi-devel git automake autoconf
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

@@ -9,7 +9,7 @@ LOGFILE="${OUTPUT}/redis-benchmark.txt"
 
 
 # Run netperf client.
-yum install -y redis
+dnf install -y redis
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 lava-wait server-ready

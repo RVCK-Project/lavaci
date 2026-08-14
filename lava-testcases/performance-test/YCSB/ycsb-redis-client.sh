@@ -29,7 +29,7 @@ while getopts "w:c:t:" opt; do
 done
 
 # Run netperf client.
-yum install -y git java maven python3
+dnf install -y git java maven python3
 ln -s /usr/bin/python3 /usr/bin/python
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

@@ -16,7 +16,7 @@ rm -rf "${OUTPUT}"
 mkdir -p "${OUTPUT}" "${BUILD_DIR}"
 : > "${RESULT_FILE}"
 
-yum install -y gcc gcc-c++ make binutils glibc-devel
+dnf install -y gcc gcc-c++ make binutils glibc-devel
 
 for item in gcc:gcc gxx:g++ make:make readelf:readelf objdump:objdump; do
     test_case="${item%%:*}"

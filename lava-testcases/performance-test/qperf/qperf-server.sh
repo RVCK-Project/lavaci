@@ -9,7 +9,7 @@ OUTPUT="$(pwd)/output"
 RESULT_FILE="${OUTPUT}/result.txt"
 
 # run qperf server
-yum install -y qperf
+dnf install -y qperf
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

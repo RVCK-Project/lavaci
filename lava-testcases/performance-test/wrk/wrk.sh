@@ -105,7 +105,7 @@ general_parser() {
     add_metric "Transfer/sec" "pass" "${transfer_sec}" "${transfer_sec_unit}"
 }
 
-yum install -y wrk
+dnf install -y wrk
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

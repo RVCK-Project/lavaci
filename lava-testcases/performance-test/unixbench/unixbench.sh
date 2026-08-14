@@ -27,7 +27,7 @@ log_parser() {
     add_metric "${prefix}-System-Benchmarks-Index-Score" "pass" "${ms}" "index"
 }
 
-yum install -y git gcc make
+dnf install -y git gcc make
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 git clone https://github.com/kdlucas/byte-unixbench.git

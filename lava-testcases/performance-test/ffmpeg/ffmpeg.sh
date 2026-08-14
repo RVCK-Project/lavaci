@@ -28,7 +28,7 @@ while getopts "d:s:r:" o; do
 done
 
 # Run test
-yum install -y ffmpeg
+dnf install -y ffmpeg
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

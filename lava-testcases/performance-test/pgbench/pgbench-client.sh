@@ -31,7 +31,7 @@ while getopts "c:j:T:" opt; do
 done
 
 # Run benchmarksql client.
-yum install -y postgresql-contrib
+dnf install -y postgresql-contrib
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

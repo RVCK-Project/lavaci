@@ -40,7 +40,7 @@ while getopts "m:M:W:r:w:i:F:n:s:" arg; do
 done
 
 # Run test
-yum install -y git gcc make jq
+dnf install -y git gcc make jq
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

@@ -31,7 +31,7 @@ while getopts "w:i:f:t:" arg; do
 done
 
 # Run test
-yum install -y java-17-openjdk java-17-openjdk-devel maven git
+dnf install -y java-17-openjdk java-17-openjdk-devel maven git
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

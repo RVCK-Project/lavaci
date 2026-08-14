@@ -9,7 +9,7 @@ RESULT_FILE="${OUTPUT}/result.txt"
 TEST_TMPDIR="/root/hpcg"
 
 
-yum install git mpich-devel g++ environment-modules -y
+dnf install git mpich-devel g++ environment-modules -y
 . /etc/profile.d/modules.sh
 module load mpi/mpich-riscv64
 

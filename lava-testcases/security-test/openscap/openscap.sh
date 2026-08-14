@@ -10,7 +10,7 @@ RESULT_FILE="${OUTPUT}/result.txt"
 
 
 # 安装测试工具
-yum install -y openscap scap-security-guide
+dnf install -y openscap scap-security-guide
 # mkdir -p "${TEST_TMPDIR}"
 # cd "${TEST_TMPDIR}"
 

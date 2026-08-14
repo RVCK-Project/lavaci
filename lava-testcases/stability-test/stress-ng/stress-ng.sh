@@ -25,7 +25,7 @@ while getopts "T:" opt; do
 done
 
 # Run test.
-yum install -y stress-ng
+dnf install -y stress-ng
 stress-ng --version
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

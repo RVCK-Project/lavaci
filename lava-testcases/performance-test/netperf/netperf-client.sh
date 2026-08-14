@@ -26,7 +26,7 @@ while getopts "t:M:" opt; do
 done
 
 # Run netperf client.
-yum install -y netperf
+dnf install -y netperf
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 lava-wait server-ready

@@ -26,7 +26,7 @@ while getopts "n:c:" o; do
 done
 
 # Run test
-yum install -y nginx httpd-tools
+dnf install -y nginx httpd-tools
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

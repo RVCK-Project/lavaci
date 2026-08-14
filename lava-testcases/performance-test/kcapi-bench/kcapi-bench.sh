@@ -24,7 +24,7 @@ while getopts "t:" o; do
 done
 
 # Run test
-yum install -y git gcc make autoconf automake libtool
+dnf install -y git gcc make autoconf automake libtool
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

@@ -28,7 +28,7 @@ while getopts "w:l:t:" opt; do
 done
 
 # Run benchmarksql client.
-yum install -y wget postgresql unzip java
+dnf install -y wget postgresql unzip java
 java -version
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

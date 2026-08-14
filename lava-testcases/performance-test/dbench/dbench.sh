@@ -27,7 +27,7 @@ while getopts "T:c:" o; do
 done
 
 # Run test
-yum install -y wget tar autoconf gcc popt-devel
+dnf install -y wget tar autoconf gcc popt-devel
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

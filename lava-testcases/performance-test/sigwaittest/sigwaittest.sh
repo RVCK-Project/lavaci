@@ -26,7 +26,7 @@ while getopts ":D:p:" opt; do
 done
 
 # Run pmqtest.
-yum install -y git make gcc numactl-devel
+dnf install -y git make gcc numactl-devel
 mkdir -p "${TEST_TMPDIR}"
 cp ../../lib/parse_rt_tests_results.py "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

@@ -28,7 +28,7 @@ while getopts "t:m:u:" opt; do
 done
 
 # Run qperf client.
-yum install -y qperf
+dnf install -y qperf
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 lava-wait server-ready

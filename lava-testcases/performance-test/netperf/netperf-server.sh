@@ -26,7 +26,7 @@ done
 
 
 # run netperf server
-yum install -y netperf
+dnf install -y netperf
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

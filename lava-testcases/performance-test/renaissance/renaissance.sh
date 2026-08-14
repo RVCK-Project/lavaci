@@ -26,7 +26,7 @@ while getopts "r:b:" arg; do
 done
 
 # Run test
-yum install -y java-17-openjdk java-17-openjdk-devel wget
+dnf install -y java-17-openjdk java-17-openjdk-devel wget
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

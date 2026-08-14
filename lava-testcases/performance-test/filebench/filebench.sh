@@ -32,7 +32,7 @@ while getopts "d:n:t:s:T:" opt; do
 done
 
 # Run test
-yum install -y git autoconf automake libtool bison flex
+dnf install -y git autoconf automake libtool bison flex
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

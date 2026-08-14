@@ -36,7 +36,7 @@ while getopts "t:d:h:p:s:P:m:" arg; do
 done
 
 # Run test
-yum install -y java-17-openjdk-devel wget tar
+dnf install -y java-17-openjdk-devel wget tar
 BASE_FILE="$(pwd)/base.jmx"
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

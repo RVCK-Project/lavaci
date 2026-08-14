@@ -33,7 +33,7 @@ while getopts "s:c:n:" arg; do
   esac
 done
 
-yum install -y gcc
+dnf install -y gcc
 mkdir -p "${TEST_TMPDIR}"
 cp stream.c "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

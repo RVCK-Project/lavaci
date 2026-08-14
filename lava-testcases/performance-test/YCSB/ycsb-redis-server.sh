@@ -11,7 +11,7 @@ RESULT_FILE="${OUTPUT}/result.txt"
 PORT="6379"
 
 # run redis server
-yum install -y redis
+dnf install -y redis
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

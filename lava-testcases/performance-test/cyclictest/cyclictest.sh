@@ -34,7 +34,7 @@ while getopts ":p:i:t:a:D:h:" opt; do
 done
 
 # Run cyclictest.
-yum install -y git make gcc numactl-devel
+dnf install -y git make gcc numactl-devel
 mkdir -p "${TEST_TMPDIR}"
 cp ../../lib/parse_rt_tests_results.py "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

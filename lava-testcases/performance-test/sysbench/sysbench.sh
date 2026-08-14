@@ -60,7 +60,7 @@ general_parser() {
 }
 
 
-yum install -y sysbench
+dnf install -y sysbench
 mkdir -p "${OUTPUT}"
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

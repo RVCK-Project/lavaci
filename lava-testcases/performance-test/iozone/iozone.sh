@@ -9,7 +9,7 @@ LOGFILE="${OUTPUT}/iozone-stdout.txt"
 RESULT_FILE="${OUTPUT}/result.txt"
 VERSION="3_494"
 
-yum install -y make gcc
+dnf install -y make gcc
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 wget "http://www.iozone.org/src/stable/iozone${VERSION}.tgz"

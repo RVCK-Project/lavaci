@@ -26,7 +26,7 @@ while getopts "n:s:" o; do
 done
 
 # Run test
-yum install -y gcc make git
+dnf install -y gcc make git
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

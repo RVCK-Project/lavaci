@@ -49,7 +49,7 @@ fio_test() {
     rm -rf ./"${rw}"* 
 }
 
-yum install -y fio
+dnf install -y fio
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

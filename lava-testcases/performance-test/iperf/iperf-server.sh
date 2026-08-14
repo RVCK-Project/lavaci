@@ -23,7 +23,7 @@ done
 
 
 # run iperf server
-yum install -y iperf3
+dnf install -y iperf3
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 

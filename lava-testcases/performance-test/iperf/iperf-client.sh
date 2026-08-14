@@ -28,7 +28,7 @@ while getopts "A:t:P:" opt; do
 done
 
 # Run iperf client.
-yum install -y iperf3
+dnf install -y iperf3
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 lava-wait server-ready

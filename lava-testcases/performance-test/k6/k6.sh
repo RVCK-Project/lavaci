@@ -28,7 +28,7 @@ while getopts "u:d:e:" arg; do
 done
 
 # Run test
-yum install -y golang git openssl-devel glibc-devel jq --setopt=tsflags=nocaps
+dnf install -y golang git openssl-devel glibc-devel jq --setopt=tsflags=nocaps
 TEST_FILE="$(pwd)/test_url.js"
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"

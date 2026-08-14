@@ -10,7 +10,7 @@ RESULT_FILE="${OUTPUT}/result.txt"
 LOGFILE="${OUTPUT}/output.txt"
 
 # Run test
-yum install -y p7zip
+dnf install -y p7zip
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

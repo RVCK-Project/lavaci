@@ -26,7 +26,7 @@ while getopts "f:n:" o; do
 done
 
 # Run test
-yum install -y blosc-bench
+dnf install -y blosc-bench
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 mkdir -p "${OUTPUT}"

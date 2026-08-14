@@ -47,7 +47,7 @@ latency_test() {
 
 
 mkdir -p "${OUTPUT}"
-yum install -y libtirpc-devel gcc make wget tar
+dnf install -y libtirpc-devel gcc make wget tar
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 wget https://sourceforge.net/projects/lmbench/files/development/lmbench-3.0-a9/lmbench-3.0-a9.tgz

@@ -28,7 +28,7 @@ while getopts "t:c:i:" opt; do
 done
 
 # Run dbbench client.
-yum install -y golang git
+dnf install -y golang git
 go version
 go install github.com/sj14/dbbench/cmd/dbbench@latest
 echo 'export PATH=$PATH:~/go/bin' >> ~/.bashrc

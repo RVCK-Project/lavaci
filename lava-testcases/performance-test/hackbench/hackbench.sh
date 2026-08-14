@@ -48,7 +48,7 @@ fi
 echo "Hackbench test options: ${OPTS}"
 
 # Run hackbench.
-yum install -y git make gcc numactl-devel
+dnf install -y git make gcc numactl-devel
 mkdir -p "${TEST_TMPDIR}"
 cd "${TEST_TMPDIR}"
 git clone git://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
