@@ -1,0 +1,25 @@
+metadata:
+  name: polybench
+  format: "Lava-Test Test Definition 1.0"
+  description: "Run fio on RISC-V device"
+  maintainer:
+    - wujie22@iscas.ac.cn
+  os:
+    - openEuler-riscv64
+  scope:
+      - performance
+  devices:
+    - qemu
+    - lpi4a
+    - sg2042
+    - spacemit-k1-bananapi-f3
+    - spacemit-k3
+params:
+  CFLAGS: "-O3"
+  EXTRA_CFLAGS: ""
+run:
+  steps:
+    - cd lava-testcases/performance-test/polybench
+    - bash polybench.sh -c "${CFLAGS}" -e "${EXTRA_CFLAGS}"
+    - chmod +x ../../utils/send-to-lava.sh
+    - ../../utils/send-to-lava.sh ./output/result.txt
