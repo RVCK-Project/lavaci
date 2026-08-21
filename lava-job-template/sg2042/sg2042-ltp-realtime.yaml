@@ -18,10 +18,6 @@ metadata:
   version: "1.0"
 # ACTION_BLOCK
 actions:
-- command:
-    name: pre_os_command
-    timeout:
-      minutes: 20
 # DEPLOY_BLOCK
 - deploy:
     timeout:
@@ -36,20 +32,15 @@ actions:
       install_modules: False
     dtb:
       url: ${dtb_url}
-    persistent_nfs:
-      address: "{FILE_SERVER_IP}:/var/lib/lava/dispatcher/tmp/sg2042_rootfs"
-- command:
-    name: pxelinux_generate
-    timeout:
-      minutes: 20
+    nfsrootfs::
+      url: ${rootfs_image_url}
+      compression: gz
 # BOOT_BLOCK
 - boot:
     timeout:
       minutes: 30
     method: u-boot
-    commands:
-      - "dhclient -ipv6=false eth0"
-      - "pxeboot -file tftp://{SERVER_IP}/pxelinux.cfg -server {SERVER_IP}"
+    commands: pxeboot
     soft_reboot:
     - root
     - openEuler
@@ -63,7 +54,7 @@ actions:
       password: openEuler12#$
 - test:
       timeout:
-        minutes: 10109
+        minutes: 10149
       definitions:
         - repository: ${testcase_repo}
           from: git

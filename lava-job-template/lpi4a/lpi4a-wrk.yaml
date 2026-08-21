@@ -23,7 +23,6 @@ actions:
     timeout:
       minutes: 120
     to: tftp
-    os: debian
     dtb:
       url: ${dtb_url}
     kernel:
