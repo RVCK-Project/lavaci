@@ -32,7 +32,7 @@ actions:
       install_modules: False
     dtb:
       url: ${dtb_url}
-    nfsrootfs::
+    nfsrootfs:
       url: ${rootfs_image_url}
       compression: gz
 # BOOT_BLOCK

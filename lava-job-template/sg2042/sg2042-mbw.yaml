@@ -32,7 +32,7 @@ actions:
       url: ${ramdisk_url}
       install_overlay: False
       install_modules: False
-    nfsrootfs::
+    nfsrootfs:
       url: ${rootfs_image_url}
       compression: gz
 # BOOT_BLOCK
